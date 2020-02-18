@@ -31,7 +31,7 @@ Cada linea azul representa una simulacion que es un escenario posible para una c
 
  ### Codigo del modelo en R 
  
- apenas es un preview  se que va a tener muchos ajustes todavia ... si estas  leyendo esto y sabes R no dudes en enviar comentarios y/o sujerencias 
+Apenas es un preview  se que va a tener muchos ajustes todavia ... si estas  leyendo esto y sabes R no dudes en enviar comentarios y/o sujerencias 
  
 ```markdown
 
