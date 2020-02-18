@@ -1,12 +1,14 @@
-## Welcome to GitHub Pages
+## Silulacion de Coronarius 2019 aplicado a la ciudad de Bogota 
 
 You can use the [editor on GitHub](https://github.com/ncespedesc/Coronavirus_bogota/edit/master/index.md) to maintain and preview the content for your website in Markdown files.
 
 Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
 
-### Markdown
+###  de donde salieron los datos y el codigo 
 
-Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
+ Aqui utilizamos los casos de muertes reportatos globalmente para por infeccion estos pueden ser accesados aqui [aqui](https://www.worldometers.info/coronavirus/) 
+
+
 
 ```markdown
 Syntax highlighted code block
