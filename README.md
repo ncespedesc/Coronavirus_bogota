@@ -7,16 +7,18 @@
 
  Aqui utilizamos los casos de muertes reportatos globalmente para por infeccion estos pueden ser accesados 
  [aqui](https://www.worldometers.info/coronavirus/) son actualizados diaramente. 
- Necesariamente debo dar los creditos a este [blog](https://www.r-bloggers.com/epidemiology-how-contagious-is-novel-coronavirus-2019-ncov//) de donde salio parte del codigo para calcular tasas de infeccion y recuperacion. otra 
+ Necesariamente debo dar los creditos a este [blog](https://www.r-bloggers.com/epidemiology-how-contagious-is-novel-coronavirus-2019-ncov//) de donde salio parte del codigo para calcular tasas de infeccion y recuperacion. Es 
  super recomendado. El modelo aqui  es un poco diferente este es un modelos estocastico es decir vamos a simular diferentes realidades alternativas que podria tener un evento epidemico.
  
- ###  algunas cosideraciones
+ ###  Algunas cosideraciones
   Este es tan solo un modelo de muchos  no **representa necesariamente la realidad** y asume  que **no existe ninguna medida de control** es meramente didactico.
   (si es lo que hace un epidemiologo en sus tiempo libres ... ver como se infectan las ciudades) aqui utilizamos un modelo  simple  que consiera tres grupos: **suceptible** - **infectados** - **recuperados**
-
-
-
 ![fuente: institutefordiseasemodeling](https://institutefordiseasemodeling.github.io/Documentation/malaria/_images/SIR-SIRS.png)
+
+### Que acontecio en China y otros paises ? 
+![china](https://github.com/ncespedesc/Coronavirus_bogota/blob/master/plot_corona_china.png)
+
+
 
 ```markdown
 Syntax highlighted code block
