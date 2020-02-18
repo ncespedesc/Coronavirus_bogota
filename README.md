@@ -12,11 +12,27 @@
  
  ###  Algunas cosideraciones
   Este es tan solo un modelo de muchos  no **representa necesariamente la realidad** y asume  que **no existe ninguna medida de control** es meramente didactico.
-  (si es lo que hace un epidemiologo en sus tiempo libres ... ver como se infectan las ciudades) aqui utilizamos un modelo  simple  que consiera tres grupos: **suceptible** - **infectados** - **recuperados**
+  (si es lo que hace un epidemiologo en sus tiempo libres ... ver como se infectan las ciudades) aqui utilizamos un modelo  simple  que consiera tres grupos: **suceptible** -> **infectados** -> **recuperados**
 ![fuente: institutefordiseasemodeling](https://institutefordiseasemodeling.github.io/Documentation/malaria/_images/SIR-SIRS.png)
 
 ### Que acontecio en China y otros paises ? 
-![china](https://github.com/ncespedesc/Coronavirus_bogota/blob/master/plot_corona_china.png)
+Este grafico muestra los datos reales de la curva epidemica 
+<p align="center">
+  <img width="600" height="400" src="https://github.com/ncespedesc/Coronavirus_bogota/blob/master/plot_corona_china.png">
+</p>
+
+### Simulamos diferentes escenarios para la enfermedad 
+Cada linea gris representa una simulacion que es un escenario posible para una curva epidemica 
+<p align="center">
+  <img width="600" height="400" src="https://github.com/ncespedesc/Coronavirus_bogota/blob/master/wohan_stochatic.png">
+</p>
+
+# 
+
+
+
+
+
 
 
 
