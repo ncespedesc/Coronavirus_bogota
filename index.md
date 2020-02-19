@@ -1,3 +1,4 @@
+#  
 <center> <h1>Simulacion de coronavirus-2019-ncov aplicado a la ciudad de Bogota </h1> </center>
 <p align="center">
   <img width="600" height="200" src="https://www.shock.co/sites/default/files/styles/apertura_desktop/public/content_files/2018_11/image_article/los-zombies-shock-disfraces.jpg?itok=uzbgMUBm&timestamp=1541358745">
@@ -116,7 +117,7 @@ Opt_par <- setNames(Opt$par, c("beta", "gamma"))
 Opt_par
 
 # Parametros
-
+ 
 beta <- as.numeric(Opt_par[1]); # taxa de infecao 
 gama <- as.numeric(Opt_par[2]);  # taxa de recuperacao 
 
