@@ -83,7 +83,7 @@ ggsave("plot_china.png", width = 8, height = 6,  units= "cm")
 # para bogota               # -----
 #############################
 
-
+  
 N <- 7413000 # population of Bogota 
 banco <- data.frame(Infected, Day, N)
 
