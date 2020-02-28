@@ -28,6 +28,13 @@ Aqui en la mejor de los casos esperaríamos 2000 personas infectadas después de
   <img width="600" height="400" src="https://github.com/ncespedesc/Coronavirus_bogota/blob/master/bogota.png?raw=true">
 </p>
   
+# ¿vamos a morir ?
+Se puede decir que la cantidad de muertes causadas por el covid-19 hasta ahora es muy baja si se compara con la mortandad que causa anualmente la gripe comun.
+Un análisis de los Centros para el Control y la Prevención de Enfermedades (CDC) señala que solo en Estados Unidos un 8% de su población (lo que representa alrededor de 26 millones de personas) se contagia con esta enfermedad cada año.
+De ellas, mueren aproximadamente 14.000. Y aunque este número sigue siendo bastante mayor que el de las muertes por el covid-19 (poco más de 2.400 hasta el momento), la tasa en el mundo de muerte por influenza es solo de un 0,01%. [BBC](https://www.bbc.com/mundo/noticias-51614537/)Fuente BBC.
+
+
+
 
  ### Codigo del modelo en R (en contruccion.... todavia )
  
