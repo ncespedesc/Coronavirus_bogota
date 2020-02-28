@@ -1,4 +1,4 @@
-<center> <h1>Simulacion estocastica de coronavirus-2019-ncov  :) </h1> </center>
+<center> <h1>Simulacion estocastica de coronavirus-2019-ncov por Nico (under construction)  </h1> </center>
 <p align="center">
   <img width="600" height="200" src="https://www.shock.co/sites/default/files/styles/apertura_desktop/public/content_files/2018_11/image_article/los-zombies-shock-disfraces.jpg?itok=uzbgMUBm&timestamp=1541358745">
 </p>
