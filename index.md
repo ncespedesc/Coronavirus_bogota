@@ -1,4 +1,3 @@
-#
 <center> <h1>Simulacion estocastica de coronavirus-2019-ncov  :) </h1> </center>
 <p align="center">
   <img width="600" height="200" src="https://www.shock.co/sites/default/files/styles/apertura_desktop/public/content_files/2018_11/image_article/los-zombies-shock-disfraces.jpg?itok=uzbgMUBm&timestamp=1541358745">
@@ -23,7 +22,7 @@ Este grafico muestra los datos reales de la curva epidemica
 
 ### Simulamos diferentes escenarios para la enfermedad  
 Cada línea azul (20 en total) representa una simulación que es un escenario posible para una curva epidémica, presentando una probabilidad diferente en el numero de infectados finales, los puntos rojos(a narajas son los los datos  de China). la escala de tiempo esta en dias.
-Aqui  en la mejor de las hipotesis esperariamos 2000 personas infectadas despues de 30 dias desde la aparacion del primer foco, en el peor de los casos la cifra de infectados revasaria las 20000.
+Aqui en la mejor de los casos esperaríamos 2000 personas infectadas después de 30 días desde la aparición del primer foco, en el peor de los casos la cifra de infectados rebasaría las 20000.
 <p align="center">
   <img width="600" height="400" src="https://github.com/ncespedesc/Coronavirus_bogota/blob/master/bogota.png?raw=true">
 </p>
@@ -31,7 +30,7 @@ Aqui  en la mejor de las hipotesis esperariamos 2000 personas infectadas despues
 
  ### Codigo del modelo en R (en contruccion.... todavia )
  
-Apenas es un preview  se que va a tener muchos ajustes todavia ... si estas  leyendo esto y sabes R no dudes en enviar comentarios y/o sujerencias 
+Modelo en construccion ire acutalizando ... algun dia por ahi 
  
 ```markdown
 
