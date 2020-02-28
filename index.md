@@ -3,6 +3,7 @@
   <img width="600" height="200" src="https://www.shock.co/sites/default/files/styles/apertura_desktop/public/content_files/2018_11/image_article/los-zombies-shock-disfraces.jpg?itok=uzbgMUBm&timestamp=1541358745">
 </p>
 
+
 ### De donde salieron los datos y la parametrizacion 
  Aqui utilizamos los casos de muertes reportados globalmente para por infección estos pueden ser accesados 
  [aqui](https://www.worldometers.info/coronavirus/) son actualizados diariamente. 
