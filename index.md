@@ -134,7 +134,7 @@ R0
 model  <- mparse(transitions = c("S -> beta*S*I/(S+I+R) -> I",
                                  "I -> gamma*I -> R"),
                  compartments = c("S", "I", "R"),
-                 gdata = c(beta = beta+0.045, gamma = gama+.147),
+                 gdata = c(beta = beta, gamma = gama), #c(beta = beta+0.045, gamma = gama+.147)
                  u0 = data.frame(S = N, I = banco$Infected[2],  R = 0),
                  tspan = 1:28)
 
