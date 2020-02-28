@@ -1,5 +1,5 @@
 #
-<center> <h1>Simulacion de coronavirus-2019-ncov aplicado a la ciudad de Bogota </h1> </center>
+<center> <h1>Simulacion de coronavirus-2019-ncov aplicado a la ciudad de Bogota por Nicolas </h1> </center>
 <p align="center">
   <img width="600" height="200" src="https://www.shock.co/sites/default/files/styles/apertura_desktop/public/content_files/2018_11/image_article/los-zombies-shock-disfraces.jpg?itok=uzbgMUBm&timestamp=1541358745">
 </p>
@@ -13,8 +13,8 @@
 
  
  ###  Algunas cosideraciones
-  Este es tan solo un modelo de muchos no **representa necesariamente la realidad** y asume que **no existe ninguna medida de control** es meramente didáctico.
-  (si es lo que hace un epidemiólogo en sus tiempo libres ... ver como se infectan las ciudades) aqui utilizamos un modelo simple  que considera tres grupos: **susceptible** -> **infectados** -> **recuperados**
+ Este es tan solo un modelo de muchos no **representa necesariamente la realidad** y asume que **no existe ninguna medida de control** como cuarentenas, restriccion de movimientos entre personas es meramente didáctico.
+aqui utilizamos un modelo simple  que considera tres grupos: **susceptible** -> **infectados** -> **recuperados**
 ![fuente: institutefordiseasemodeling](https://institutefordiseasemodeling.github.io/Documentation/malaria/_images/SIR-SIRS.png)
 fuente: institutefordiseasemodeling
 ### Que acontecio en China y otros paises ? 
@@ -24,13 +24,15 @@ Este grafico muestra los datos reales de la curva epidemica
 </p>
 
 ### Simulamos diferentes escenarios para la enfermedad  
-Cada línea azul representa una simulación que es un escenario posible para una curva epidémica
+Cada línea azul (20 en total) representa una simulación que es un escenario posible para una curva epidémica, presentando una probabilidad diferente en el numero de infectados finales, los puntos rojos(a narajas son los los datos  de China). la escala de tiempo esta en dias.
+
+Aqui  en la mejor de las hipotesis esperariamos 2000 personas infectadas despues de 30 dias desde la aparacion del primer foco, en el peor de los casos la cifra de infectados revasaria las 20000.
 <p align="center">
   <img width="600" height="400" src="https://github.com/ncespedesc/Coronavirus_bogota/blob/master/bogota.png?raw=true">
 </p>
+  
 
-
- ### Codigo del modelo en R 
+ ### Codigo del modelo en R (en contruccion )
  
 Apenas es un preview  se que va a tener muchos ajustes todavia ... si estas  leyendo esto y sabes R no dudes en enviar comentarios y/o sujerencias 
  
