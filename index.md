@@ -1,4 +1,4 @@
-#  
+#
 <center> <h1>Simulacion de coronavirus-2019-ncov aplicado a la ciudad de Bogota </h1> </center>
 <p align="center">
   <img width="600" height="200" src="https://www.shock.co/sites/default/files/styles/apertura_desktop/public/content_files/2018_11/image_article/los-zombies-shock-disfraces.jpg?itok=uzbgMUBm&timestamp=1541358745">
@@ -20,13 +20,13 @@ fuente: institutefordiseasemodeling
 ### Que acontecio en China y otros paises ? 
 Este grafico muestra los datos reales de la curva epidemica 
 <p align="center">
-  <img width="600" height="400" src="https://github.com/ncespedesc/Coronavirus_bogota/blob/master/plot_corona_china.png">
+  <img width="600" height="400" src="https://github.com/ncespedesc/Coronavirus_bogota/blob/master/plot_corona_china.png?raw=true">
 </p>
 
 ### Simulamos diferentes escenarios para la enfermedad  
 Cada linea azul representa una simulacion que es un escenario posible para una curva epidemica 
 <p align="center">
-  <img width="600" height="400" src="https://github.com/ncespedesc/Coronavirus_bogota/blob/master/bogota.png">
+  <img width="600" height="400" src="https://github.com/ncespedesc/Coronavirus_bogota/blob/master/bogota.png?raw=true">
 </p>
 
 
@@ -197,4 +197,5 @@ for (i in 1:individual_sim) {
 
 
 ```
+
 
