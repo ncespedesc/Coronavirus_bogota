@@ -6,16 +6,18 @@
 
 ### De donde salieron los datos y la parametrizacion 
 
- Aqui utilizamos los casos de muertes reportatos globalmente para por infeccion estos pueden ser accesados 
- [aqui](https://www.worldometers.info/coronavirus/) son actualizados diaramente. 
- Necesariamente debo dar los creditos a este [blog](https://www.r-bloggers.com/epidemiology-how-contagious-is-novel-coronavirus-2019-ncov//) de donde salio parte del codigo para calcular tasas de infeccion y recuperacion. Es 
- super recomendado. El modelo aqui  es un poco diferente este es un modelos estocastico es decir vamos a simular diferentes realidades alternativas que podria tener un evento epidemico.
+ Aqui utilizamos los casos de muertes reportados globalmente para por infección estos pueden ser accesados 
+ [aqui](https://www.worldometers.info/coronavirus/) son actualizados diariamente. 
+ parametrización del modelo es realizada de acuerdo a los casos reportados en China [blog](https://www.r-bloggers.com/epidemiology-how-contagious-is-novel-coronavirus-2019-ncov//) de donde salió parte del código para calcular tasas de infección y recuperación. Es 
+ super recomendado. El modelo aqui es un poco diferente este es un modelo estocástico es decir vamos a simular diferentes realidades alternativas que podría tener un evento epidémico.
+
  
  ###  Algunas cosideraciones
-  Este es tan solo un modelo de muchos  no **representa necesariamente la realidad** y asume  que **no existe ninguna medida de control** es meramente didactico.
-  (si es lo que hace un epidemiologo en sus tiempo libres ... ver como se infectan las ciudades) aqui utilizamos un modelo  simple  que consiera tres grupos: **suceptible** -> **infectados** -> **recuperados**
+  Este es tan solo un modelo de muchos no **representa necesariamente la realidad** y asume que **no existe ninguna medida de control** es meramente didáctico.
+  (si es lo que hace un epidemiólogo en sus tiempo libres ... ver como se infectan las ciudades) aqui utilizamos un modelo simple  que considera tres grupos: **susceptible** -> **infectados** -> **recuperados**
 ![fuente: institutefordiseasemodeling](https://institutefordiseasemodeling.github.io/Documentation/malaria/_images/SIR-SIRS.png)
 fuente: institutefordiseasemodeling
+
 
 ### Que acontecio en China y otros paises ? 
 Este grafico muestra los datos reales de la curva epidemica 
@@ -24,7 +26,7 @@ Este grafico muestra los datos reales de la curva epidemica
 </p>
 
 ### Simulamos diferentes escenarios para la enfermedad  
-Cada linea azul representa una simulacion que es un escenario posible para una curva epidemica 
+Cada línea azul representa una simulación que es un escenario posible para una curva epidémica 
 <p align="center">
   <img width="600" height="400" src="https://github.com/ncespedesc/Coronavirus_bogota/blob/master/bogota.png">
 </p>
@@ -51,7 +53,7 @@ library(doParallel)
 
 # creamos o dataframe com os dados do outbreeak 
 
-################## creditos aqui : ###################################################
+##################  parametrizacion : ###################################################
 # dados e parametros de https://www.r-bloggers.com/epidemiology-how-contagious-is-novel-coronavirus-2019-ncov/
 ######################################################################################
 setwd("~/COISAS NERDS/coronavirus model")
