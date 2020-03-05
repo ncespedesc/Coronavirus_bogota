@@ -25,15 +25,11 @@ Este grafico muestra los datos reales de la curva epidemica
 Cada línea azul (20 en total) representa una simulación que es un escenario posible para una curva epidémica, presentando una probabilidad diferente en el numero de infectados finales, los puntos rojos(a narajas son los los datos  de China). la escala de tiempo esta en dias.
 Aqui en la mejor de los casos esperaríamos 2000 personas infectadas después de 30 días desde la aparición del primer foco, en el peor de los casos la cifra de infectados rebasaría las 20000.
 <p align="center">
-  <img width="600" height="400" src="https://github.com/ncespedesc/Coronavirus_bogota/blob/master/bogota.png?raw=true">
+  <img width="600" height="400" src="https://github.com/ncespedesc/Coronavirus_bogota/blob/master/bogota1.png?raw=true">
 </p>
   
-# ¿vamos a morir ?
-Se puede decir que la cantidad de muertes causadas por el covid-19 hasta ahora es muy baja si se compara con la mortandad que causa anualmente la gripe comun.
-Un análisis de los Centros para el Control y la Prevención de Enfermedades (CDC) señala que solo en Estados Unidos un 8% de su población (lo que representa alrededor de 26 millones de personas) se contagia con esta enfermedad cada año.
-De ellas, mueren aproximadamente 14.000. Y aunque este número sigue siendo bastante mayor que el de las muertes por el covid-19 (poco más de 2.400 hasta el momento), la tasa en el mundo de muerte por influenza es solo de un 0,01%.Fuente [BBC](https://www.bbc.com/mundo/noticias-51614537/).
-
-
+# que tan mortal es ? 
+En los afectados de entre 10 y 49 años se ha registrado un índice de mortalidad de entre el 0,2% y 0,4%. Solo hay tasas superiores al 1% en las personas que mayores de 50 años. Se eleva al 3,6% en las personas de entre 60 y 69 años y hasta el 8% en edades comprendidas entre los 70 y los 79 años. Hasta el momento, los niños parecen estar a salvo de los efectos más graves ya que ninguno ha fallecido a causa del virus. [fonte](https://www.consalud.es/pacientes/especial-coronavirus/cuales-grupos-riesgo-coronavirus-indice-mortalidad-presenta-uno_74816_102.html).
 
 
  ### Codigo del modelo en R (en contruccion.... todavia )
@@ -41,57 +37,51 @@ De ellas, mueren aproximadamente 14.000. Y aunque este número sigue siendo bast
 Modelo en construccion ire acutalizando ... algun dia por ahi 
  
 ```markdown
-
-# Modelo SIR sem demografia (estocastico)
-# Utilizando o algoritmo de Gillespie (pacote GillespieSSA)
-# Gillespie Stochastic Simulation Algorithm 
-#packages 
-
-# pacotes necessarios para as analises 
+##################################
+# Coronavirus en bogota @nicolas
+#################################
+# pacotes 
+library('nCov2019')
+library(tidyverse)
 library(GillespieSSA)
 library(ggpubr)
 library(deSolve)
-library(tidyverse)
 library(SimInf)
 library(doParallel)
 
-# creamos o dataframe com os dados do outbreeak 
 
-################## creditos aqui : ###################################################
-# dados e parametros de https://www.r-bloggers.com/epidemiology-how-contagious-is-novel-coronavirus-2019-ncov/
-######################################################################################
-setwd("~/COISAS NERDS/coronavirus model")
+#carregando os dados  
+dxy = load_nCov2019(lang = 'en', source = 'dxy')
+head(summary(dxy))
+bancoaux <- summary(dxy) %>% as.data.frame() %>% filter(province == "Hubei")
+dxy_china <- aggregate(cum_confirm ~ + time, bancoaux, sum)
+# ajustamos pro plot 
+dxy_china$data <- as.numeric(dxy_china$time)-min(as.numeric(dxy_china$time))+1
 
-# number of infected----
+#plotando a curva epidemica 
 
-# https://www.worldometers.info/coronavirus/  #  numero de mortes 
-Infected <-c(45, 62, 121, 198, 291,579,845,1317,2015,2800,4581,6058,7813,9821,11948,14552,
-             17389,20628,24553,28276,31439,34876,37552,40553,43099,45170, 59283, 64437)
+plot1 <- ggplot(dxy_china,
+       aes(data,cum_confirm)) +
+    geom_line(size = 1 , colour = "red")+ #+ scale_x_date(date_labels = "%d-%m-%Y") + 
+    ylab('Confirmed Cases in China') + xlab('Time') + theme_bw() +
+    theme(axis.text.x = element_text(hjust = 1)); plot1
 
-# setamos algun paramentos do modelo ----
+ggsave("epidemic_curve.png", width = 6, height = 3)
 
+# carregando as condicoes iniciais 
+Infected <- as.numeric(dxy_china$cum_confirm)
+    
 Day <- 1:(length(Infected))
-N <- 11000000 # population of wohan china
-banco <- data.frame(Infected, Day, N)
-
-# plotamos os casos ----
-
-plot1 <- ggplot()+
-    geom_path(banco, mapping = aes(x = Day, y = Infected , colour = (Infected)))+
-    geom_point(banco, mapping = aes(x = Day, y =Infected , colour = (Infected)), size= 3)+
-    scale_colour_gradient(name = "Cases China", low = "yellow", high = "red", na.value = NA, trans= "log10")+
-    labs(x= "Dias", y = "Infectados") ; plot1
-
-
-ggsave("plot_china.png", width = 8, height = 6,  units= "cm")
-
-#############################
-# para bogota               # -----
-#############################
-
-  
 N <- 7413000 # population of Bogota 
 banco <- data.frame(Infected, Day, N)
+
+
+
+
+
+########################################
+#    Parametrizando o modelo           #
+########################################
 
 SIR <- function(time, state, parameters) {
     par <- as.list(c(state, parameters))
@@ -103,10 +93,6 @@ SIR <- function(time, state, parameters) {
     })
 }
 
-
-# model
-
-library(deSolve)
 init <- c(S = N-Infected[1], I = Infected[1], R = 0)
 RSS <- function(parameters) {
     names(parameters) <- c("beta", "gamma")
@@ -116,38 +102,41 @@ RSS <- function(parameters) {
 }
 
 Opt <- optim(c(0.5, 0.5), RSS, method = "L-BFGS-B", lower = c(0, 0), upper = c(1, 1)) # optimize with some sensible conditions
-Opt$message
-## [1] "CONVERGENCE: REL_REDUCTION_OF_F <= FACTR*EPSMCH"
+
 
 Opt_par <- setNames(Opt$par, c("beta", "gamma"))
 Opt_par
 
 # Parametros
- 
+
 beta <- as.numeric(Opt_par[1]); # taxa de infecao 
 gama <- as.numeric(Opt_par[2]);  # taxa de recuperacao 
 
 par.SIRsd <- c(beta = beta, gama = gama)
 # calculando R0
 R0 <- as.numeric(beta/gama)
-R0
+R0  
+
 
 ########################################
 # Modelo modelo estocastico gillespe  ----
 ########################################
 
 
-# vamos  simular que vai acontecer nos priximos 15 dias 
+# vamos  simular que vai acontecer nos priximos x dias 
 
 model  <- mparse(transitions = c("S -> beta*S*I/(S+I+R) -> I",
                                  "I -> gamma*I -> R"),
                  compartments = c("S", "I", "R"),
-                 gdata = c(beta = beta, gamma = gama), #c(beta = beta+0.045, gamma = gama+.147)
+                 gdata = c(beta = beta, gamma = gama), # ajsutamos 
                  u0 = data.frame(S = N, I = banco$Infected[2],  R = 0),
-                 tspan = 1:28)
+                 tspan = 1:35)
+
+
 
 
 # creamos funcion ----
+
 coroneme_esta_siminf <- function (model1){
     
     model <- model1
@@ -159,7 +148,6 @@ coroneme_esta_siminf <- function (model1){
         tr$simulation <- i
         # agrupamos pra poupar memoria 
         media_infect_df2 <- rbind(media_infect_df2, tr)
-        
     }
     return(media_infect_df2)
     
@@ -168,12 +156,12 @@ coroneme_esta_siminf <- function (model1){
 
 # simulamos  rapidinho em paralelo 
 
-c_memory <- 8 # numero de nucleos do computador  
+c_memory <- 19 # numero de nucleos do computador  
 cl <- makeCluster(c_memory) #not to overload your computer
 registerDoParallel(cl)
 
 
-individual_sim <- 20
+individual_sim <- 10
 
 
 corona_sir_bog <- foreach(
@@ -187,20 +175,24 @@ corona_sir_bog <- foreach(
 
 stopCluster(cl)
 
-#plotando
-
+# agora plotamos a galera 
 
 
 plotb1 <- plot1
 for (i in 1:individual_sim) {
     temp <- corona_sir_bog %>% filter(simulation == i) %>% group_by(node, time,simulation) %>% summarise(I= sum(I))
     plotb1 <- plotb1 + geom_line(data = temp,
-                               mapping = aes(x= time, y = I),
-                               colour = "#00a8cc",
-                               alpha = 0.7)+labs(x= "Dias", y = "Infectados")+
+                                 mapping = aes(x= time, y = I),
+                                 colour = "#00a8cc",
+                                 alpha = 0.7)+labs(x= "Dias", y = "Infectados")+
         ggtitle("2019-nCoV Bogota")
 }
 
+
+plotb1+xlim(0,35)
+
+
+ggsave("bogota.png", width = 6, height = 3)
 
 ```
 
