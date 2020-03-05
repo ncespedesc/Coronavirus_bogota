@@ -1,93 +1,87 @@
-#  
-<center> <h1>Simulacion de coronavirus-2019-ncov por Nico </h1> </center>
+<center> <h1>Simulacion estocastica de coronavirus-2019-ncov (under construction)  </h1> </center>
 <p align="center">
   <img width="600" height="200" src="https://www.shock.co/sites/default/files/styles/apertura_desktop/public/content_files/2018_11/image_article/los-zombies-shock-disfraces.jpg?itok=uzbgMUBm&timestamp=1541358745">
 </p>
 
-### De donde salieron los datos y la parametrizacion 
 
+### De donde salieron los datos y la parametrizacion 
  Aqui utilizamos los casos de muertes reportados globalmente para por infección estos pueden ser accesados 
  [aqui](https://www.worldometers.info/coronavirus/) son actualizados diariamente. 
  parametrización del modelo es realizada de acuerdo a los casos reportados en China [blog](https://www.r-bloggers.com/epidemiology-how-contagious-is-novel-coronavirus-2019-ncov//) de donde salió parte del código para calcular tasas de infección y recuperación. Es 
  super recomendado. El modelo aqui es un poco diferente este es un modelo estocástico es decir vamos a simular diferentes realidades alternativas que podría tener un evento epidémico.
 
- 
- ###  Algunas cosideraciones
-  Este es tan solo un modelo de muchos no **representa necesariamente la realidad** y asume que **no existe ninguna medida de control** es meramente didáctico.
-  (si es lo que hace un epidemiólogo en sus tiempo libres ... ver como se infectan las ciudades) aqui utilizamos un modelo simple  que considera tres grupos: **susceptible** -> **infectados** -> **recuperados**
+###  Algunas cosideraciones
+ Este es tan solo un modelo de muchos no **representa necesariamente la realidad** y asume que **no existe ninguna medida de control** como cuarentenas, restriccion de movimientos entre personas es meramente didáctico.
+aqui utilizamos un modelo simple  que considera tres grupos: **susceptible** -> **infectados** -> **recuperados**
 ![fuente: institutefordiseasemodeling](https://institutefordiseasemodeling.github.io/Documentation/malaria/_images/SIR-SIRS.png)
 fuente: institutefordiseasemodeling
-
-
 ### Que acontecio en China y otros paises ? 
 Este grafico muestra los datos reales de la curva epidemica 
 <p align="center">
-  <img width="600" height="400" src="https://github.com/ncespedesc/Coronavirus_bogota/blob/master/plot_corona_china.png">
+  <img width="600" height="400" src="https://github.com/ncespedesc/Coronavirus_bogota/blob/master/plot_corona_china.png?raw=true">
 </p>
 
 ### Simulamos diferentes escenarios para la enfermedad  
-Cada línea azul representa una simulación que es un escenario posible para una curva epidémica 
+Cada línea azul (20 en total) representa una simulación que es un escenario posible para una curva epidémica, presentando una probabilidad diferente en el numero de infectados finales, los puntos rojos(a narajas son los los datos  de China). la escala de tiempo esta en dias.
+Aqui en la mejor de los casos esperaríamos 2000 personas infectadas después de 30 días desde la aparición del primer foco, en el peor de los casos la cifra de infectados rebasaría las 20000.
 <p align="center">
-  <img width="600" height="400" src="https://github.com/ncespedesc/Coronavirus_bogota/blob/master/bogota.png">
+  <img width="600" height="400" src="https://github.com/ncespedesc/Coronavirus_bogota/blob/master/bogota1.png?raw=true">
 </p>
+  
+# que tan mortal es ? 
+En los afectados de entre 10 y 49 años se ha registrado un índice de mortalidad de entre el 0,2% y 0,4%. Solo hay tasas superiores al 1% en las personas que mayores de 50 años. Se eleva al 3,6% en las personas de entre 60 y 69 años y hasta el 8% en edades comprendidas entre los 70 y los 79 años. Hasta el momento, los niños parecen estar a salvo de los efectos más graves ya que ninguno ha fallecido a causa del virus. [fonte](https://www.consalud.es/pacientes/especial-coronavirus/cuales-grupos-riesgo-coronavirus-indice-mortalidad-presenta-uno_74816_102.html).
 
 
- ### Codigo del modelo en R 
+ ### Codigo del modelo en R (en contruccion.... todavia )
  
- apenas es un preview  se que va a tener muchos ajustes todavia ... si estas  leyendo esto y sabes R no dudes en enviar comentarios y/o sujerencias 
+Modelo en construccion ire acutalizando ... algun dia por ahi 
  
 ```markdown
-
-# Modelo SIR sem demografia (estocastico)
-# Utilizando o algoritmo de Gillespie (pacote GillespieSSA)
-# Gillespie Stochastic Simulation Algorithm 
-#packages 
-
-# pacotes necessarios para as analises 
+##################################
+# Coronavirus en bogota @nicolas
+#################################
+# pacotes 
+library('nCov2019')
+library(tidyverse)
 library(GillespieSSA)
 library(ggpubr)
 library(deSolve)
-library(tidyverse)
 library(SimInf)
 library(doParallel)
 
-# creamos o dataframe com os dados do outbreeak 
 
-##################  parametrizacion : ###################################################
-# dados e parametros de https://www.r-bloggers.com/epidemiology-how-contagious-is-novel-coronavirus-2019-ncov/
-######################################################################################
-setwd("~/COISAS NERDS/coronavirus model")
+#carregando os dados  
+dxy = load_nCov2019(lang = 'en', source = 'dxy')
+head(summary(dxy))
+bancoaux <- summary(dxy) %>% as.data.frame() %>% filter(province == "Hubei")
+dxy_china <- aggregate(cum_confirm ~ + time, bancoaux, sum)
+# ajustamos pro plot 
+dxy_china$data <- as.numeric(dxy_china$time)-min(as.numeric(dxy_china$time))+1
 
-# number of infected----
+#plotando a curva epidemica 
 
-# https://www.worldometers.info/coronavirus/  #  numero de mortes 
-Infected <-c(45, 62, 121, 198, 291,579,845,1317,2015,2800,4581,6058,7813,9821,11948,14552,
-             17389,20628,24553,28276,31439,34876,37552,40553,43099,45170, 59283, 64437)
+plot1 <- ggplot(dxy_china,
+       aes(data,cum_confirm)) +
+    geom_line(size = 1 , colour = "red")+ #+ scale_x_date(date_labels = "%d-%m-%Y") + 
+    ylab('Confirmed Cases in China') + xlab('Time') + theme_bw() +
+    theme(axis.text.x = element_text(hjust = 1)); plot1
 
-# setamos algun paramentos do modelo ----
+ggsave("epidemic_curve.png", width = 6, height = 3)
 
+# carregando as condicoes iniciais 
+Infected <- as.numeric(dxy_china$cum_confirm)
+    
 Day <- 1:(length(Infected))
-N <- 11000000 # population of wohan china
-banco <- data.frame(Infected, Day, N)
-
-# plotamos os casos ----
-
-plot1 <- ggplot()+
-    geom_path(banco, mapping = aes(x = Day, y = Infected , colour = (Infected)))+
-    geom_point(banco, mapping = aes(x = Day, y =Infected , colour = (Infected)), size= 3)+
-    scale_colour_gradient(name = "Cases China", low = "yellow", high = "red", na.value = NA, trans= "log10")+
-    labs(x= "Dias", y = "Infectados") ; plot1
-
-
-ggsave("plot_china.png", width = 8, height = 6,  units= "cm")
-
-#############################
-# para bogota               # -----
-#############################
-
-
 N <- 7413000 # population of Bogota 
 banco <- data.frame(Infected, Day, N)
+
+
+
+
+
+########################################
+#    Parametrizando o modelo           #
+########################################
 
 SIR <- function(time, state, parameters) {
     par <- as.list(c(state, parameters))
@@ -99,10 +93,6 @@ SIR <- function(time, state, parameters) {
     })
 }
 
-
-# model
-
-library(deSolve)
 init <- c(S = N-Infected[1], I = Infected[1], R = 0)
 RSS <- function(parameters) {
     names(parameters) <- c("beta", "gamma")
@@ -112,8 +102,7 @@ RSS <- function(parameters) {
 }
 
 Opt <- optim(c(0.5, 0.5), RSS, method = "L-BFGS-B", lower = c(0, 0), upper = c(1, 1)) # optimize with some sensible conditions
-Opt$message
-## [1] "CONVERGENCE: REL_REDUCTION_OF_F <= FACTR*EPSMCH"
+
 
 Opt_par <- setNames(Opt$par, c("beta", "gamma"))
 Opt_par
@@ -126,24 +115,28 @@ gama <- as.numeric(Opt_par[2]);  # taxa de recuperacao
 par.SIRsd <- c(beta = beta, gama = gama)
 # calculando R0
 R0 <- as.numeric(beta/gama)
-R0
+R0  
+
 
 ########################################
 # Modelo modelo estocastico gillespe  ----
 ########################################
 
 
-# vamos  simular que vai acontecer nos priximos 15 dias 
+# vamos  simular que vai acontecer nos priximos x dias 
 
 model  <- mparse(transitions = c("S -> beta*S*I/(S+I+R) -> I",
                                  "I -> gamma*I -> R"),
                  compartments = c("S", "I", "R"),
-                 gdata = c(beta = beta+0.045, gamma = gama+.147),
+                 gdata = c(beta = beta, gamma = gama), # ajsutamos 
                  u0 = data.frame(S = N, I = banco$Infected[2],  R = 0),
-                 tspan = 1:28)
+                 tspan = 1:35)
+
+
 
 
 # creamos funcion ----
+
 coroneme_esta_siminf <- function (model1){
     
     model <- model1
@@ -155,7 +148,6 @@ coroneme_esta_siminf <- function (model1){
         tr$simulation <- i
         # agrupamos pra poupar memoria 
         media_infect_df2 <- rbind(media_infect_df2, tr)
-        
     }
     return(media_infect_df2)
     
@@ -164,12 +156,12 @@ coroneme_esta_siminf <- function (model1){
 
 # simulamos  rapidinho em paralelo 
 
-c_memory <- 8 # numero de nucleos do computador  
+c_memory <- 19 # numero de nucleos do computador  
 cl <- makeCluster(c_memory) #not to overload your computer
 registerDoParallel(cl)
 
 
-individual_sim <- 20
+individual_sim <- 10
 
 
 corona_sir_bog <- foreach(
@@ -183,21 +175,23 @@ corona_sir_bog <- foreach(
 
 stopCluster(cl)
 
-#plotando
-
+# agora plotamos a galera 
 
 
 plotb1 <- plot1
 for (i in 1:individual_sim) {
     temp <- corona_sir_bog %>% filter(simulation == i) %>% group_by(node, time,simulation) %>% summarise(I= sum(I))
     plotb1 <- plotb1 + geom_line(data = temp,
-                               mapping = aes(x= time, y = I),
-                               colour = "#00a8cc",
-                               alpha = 0.7)+labs(x= "Dias", y = "Infectados")+
+                                 mapping = aes(x= time, y = I),
+                                 colour = "#00a8cc",
+                                 alpha = 0.7)+labs(x= "Dias", y = "Infectados")+
         ggtitle("2019-nCoV Bogota")
 }
 
 
+plotb1+xlim(0,35)
+
+
+ggsave("bogota.png", width = 6, height = 3)
+
 ```
-
-
