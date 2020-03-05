@@ -4,11 +4,8 @@
 </p>
 
 
-### De donde salieron los datos y la parametrizacion 
- Aqui utilizamos los casos de muertes reportados globalmente para por infección estos pueden ser accesados 
- [aqui](https://www.worldometers.info/coronavirus/) son actualizados diariamente. 
- parametrización del modelo es realizada de acuerdo a los casos reportados en China [blog](https://www.r-bloggers.com/epidemiology-how-contagious-is-novel-coronavirus-2019-ncov//) de donde salió parte del código para calcular tasas de infección y recuperación. Es 
- super recomendado. El modelo aqui es un poco diferente este es un modelo estocástico es decir vamos a simular diferentes realidades alternativas que podría tener un evento epidémico.
+### Datos y Parametrizacion 
+Aqui utilizamos los casos de muertes reportados globalmente para la parametrización del modelo es realizada de acuerdo a los casos reportados en China, parametros fueron calulados a partir de un modelo deterministico [blog](https://www.r-bloggers.com/epidemiology-how-contagious-is-novel-coronavirus-2019-ncov//). El modelo aqui es un poco diferente este es un modelo estocástico es decir vamos a simular diferentes realidades alternativas que podría tener un evento epidémico.
 
 ###  Algunas cosideraciones
  Este es tan solo un modelo de muchos no **representa necesariamente la realidad** y asume que **no existe ninguna medida de control** como cuarentenas, restriccion de movimientos entre personas es meramente didáctico.
@@ -23,12 +20,12 @@ Este grafico muestra los datos reales de la curva epidemica
 
 ### Simulamos diferentes escenarios para la enfermedad  
 Cada línea azul (20 en total) representa una simulación que es un escenario posible para una curva epidémica, presentando una probabilidad diferente en el numero de infectados finales, los puntos rojos(a narajas son los los datos  de China). la escala de tiempo esta en dias.
-Aqui en la mejor de los casos esperaríamos 2000 personas infectadas después de 30 días desde la aparición del primer foco, en el peor de los casos la cifra de infectados rebasaría las 20000.
+Aqui en la mejor de los casos esperaríamos 1821 personas infectadas después de 35 días desde la aparición del primer foco, en el peor de los casos la cifra de infectados rebasaría las 41526.
 <p align="center">
   <img width="600" height="400" src="https://github.com/ncespedesc/Coronavirus_bogota/blob/master/bogota1.png?raw=true">
 </p>
   
-# que tan mortal es ? 
+# Que tan mortal es ? 
 En los afectados de entre 10 y 49 años se ha registrado un índice de mortalidad de entre el 0,2% y 0,4%. Solo hay tasas superiores al 1% en las personas que mayores de 50 años. Se eleva al 3,6% en las personas de entre 60 y 69 años y hasta el 8% en edades comprendidas entre los 70 y los 79 años. Hasta el momento, los niños parecen estar a salvo de los efectos más graves ya que ninguno ha fallecido a causa del virus. [fonte](https://www.consalud.es/pacientes/especial-coronavirus/cuales-grupos-riesgo-coronavirus-indice-mortalidad-presenta-uno_74816_102.html).
 
 
@@ -195,5 +192,3 @@ plotb1+xlim(0,35)
 ggsave("bogota.png", width = 6, height = 3)
 
 ```
-
-
