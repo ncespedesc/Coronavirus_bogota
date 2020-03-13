@@ -11,22 +11,14 @@ Aqui utilizamos los casos de muertes reportados globalmente para la parametrizac
  Este es tan solo un modelo de muchos no **representa necesariamente la realidad** y asume que **no existe ninguna medida de control** como cuarentenas, restriccion de movimientos entre personas es meramente didáctico.
 aqui utilizamos un modelo simple  que considera tres grupos: **susceptible** -> **infectados** -> **recuperados**
 ![fuente: institutefordiseasemodeling](https://institutefordiseasemodeling.github.io/Documentation/malaria/_images/SIR-SIRS.png)
-fuente: institutefordiseasemodeling
-### Que acontecio en China y otros paises ? 
-Este grafico muestra los datos reales de la curva epidemica 
-<p align="center">
-  <img width="600" height="400" src="https://github.com/ncespedesc/Coronavirus_bogota/blob/master/plot_corona_china.png?raw=true">
-</p>
 
 ### Simulamos diferentes escenarios para la enfermedad  
 Cada línea azul (20 en total) representa una simulación que es un escenario posible para una curva epidémica, presentando una probabilidad diferente en el numero de infectados finales, los puntos rojos(a narajas son los los datos  de China). la escala de tiempo esta en dias.
-Aqui en la mejor de los casos esperaríamos 1821 personas infectadas después de 35 días desde la aparición del primer foco, en el peor de los casos la cifra de infectados rebasaría las 41526.
+
 <p align="center">
   <img width="600" height="400" src="https://github.com/ncespedesc/Coronavirus_bogota/blob/master/bogota1.png?raw=true">
 </p>
   
-# Que tan mortal es ? 
-En los afectados de entre 10 y 49 años se ha registrado un índice de mortalidad de entre el 0,2% y 0,4%. Solo hay tasas superiores al 1% en las personas que mayores de 50 años. Se eleva al 3,6% en las personas de entre 60 y 69 años y hasta el 8% en edades comprendidas entre los 70 y los 79 años. Hasta el momento, los niños parecen estar a salvo de los efectos más graves ya que ninguno ha fallecido a causa del virus. [fonte](https://www.consalud.es/pacientes/especial-coronavirus/cuales-grupos-riesgo-coronavirus-indice-mortalidad-presenta-uno_74816_102.html).
 
 
  ### Codigo del modelo en R (en contruccion.... todavia )
