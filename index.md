@@ -15,7 +15,7 @@ fuente: institutefordiseasemodeling
 
 
 ### Simulamos diferentes escenarios para la enfermedad  
-Cada línea azul (20 en total) representa una simulación que es un escenario posible para una curva epidémica, presentando una probabilidad diferente en el numero de infectados finales, los puntos rojos(a narajas son los los datos  de China). la escala de tiempo esta en dias.
+Cada línea azul (20 en total) representa una simulación que es un escenario posible para una curva epidémica, presentando una probabilidad diferente en el numero de infectados-fatales(considerando mortalidad del 1%) finales, los puntos rojos(a narajas son los los datos  de China). la escala de tiempo esta en dias. 
 <p align="center">
   <img width="600" height="400" src="https://github.com/ncespedesc/Coronavirus_bogota/blob/master/bogota1.png?raw=true">
 </p>
@@ -73,6 +73,8 @@ banco <- data.frame(Infected, Day, N)
 #    Parametrizando o modelo           #
 ########################################
 
+#https://arxiv.org/pdf/2002.06563.pdf
+#https://www.thelancet.com/journals/langlo/article/PIIS2214-109X(20)30074-7/fulltext
 
 model <- SEIR(u0 = data.frame(S = 5000000, E = 0, I = 1, R = 0),
               tspan = 1:100,
@@ -109,7 +111,7 @@ cl <- makeCluster(c_memory) #not to overload your computer
 registerDoParallel(cl)
 
 
-individual_sim <- 10
+individual_sim <- 20
 
 
 corona_sir_bog <- foreach(
@@ -125,7 +127,7 @@ stopCluster(cl)
 
 # agora plotamos a galera 
 
-corona_sir_bog <- corona_sir_bog%>% mutate(mortality = I*0.01)
+corona_sir_bog <- corona_sir_bog%>% mutate(mortality = I*0.01) # assumindo a mortalidade de 1 %
 
 plotb1 <- ggplot()
 for (i in 1:individual_sim) {
