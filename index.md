@@ -15,7 +15,7 @@ fuente: institutefordiseasemodeling
 
 
 ### Simulamos diferentes escenarios para la enfermedad  
-Cada línea azul (20 en total) representa una simulación que es un escenario posible para una curva epidémica, presentando una probabilidad diferente en el numero de infectados finales, los puntos rojos(a narajas son los los datos  de China). la escala de tiempo esta en dias.
+Cada línea azul (20 en total) representa una simulación que es un escenario posible para una curva epidémica, presentando una probabilidad diferente en el numero de infectados-fatales(considerando mortalidad del 1%) finales, los puntos rojos(a narajas son los los datos  de China). la escala de tiempo esta en dias. 
 <p align="center">
   <img width="600" height="400" src="https://github.com/ncespedesc/Coronavirus_bogota/blob/master/bogota1.png?raw=true">
 </p>
@@ -73,57 +73,17 @@ banco <- data.frame(Infected, Day, N)
 #    Parametrizando o modelo           #
 ########################################
 
-SIR <- function(time, state, parameters) {
-    par <- as.list(c(state, parameters))
-    with(par, {
-        dS <- -beta/N * I * S
-        dI <- beta/N * I * S - gamma * I
-        dR <- gamma * I
-        list(c(dS, dI, dR))
-    })
-}
+#https://arxiv.org/pdf/2002.06563.pdf
+#https://www.thelancet.com/journals/langlo/article/PIIS2214-109X(20)30074-7/fulltext
 
-init <- c(S = N-Infected[1], I = Infected[1], R = 0)
-RSS <- function(parameters) {
-    names(parameters) <- c("beta", "gamma")
-    out <- ode(y = init, times = Day, func = SIR, parms = parameters)
-    fit <- out[ , 3]
-    sum((Infected - fit)^2)
-}
+model <- SEIR(u0 = data.frame(S = 5000000, E = 0, I = 1, R = 0),
+              tspan = 1:100,
+              beta = 1.75,
+              epsilon = 0.2,
+              gamma = 0.5)
 
-Opt <- optim(c(0.5, 0.5), RSS, method = "L-BFGS-B", lower = c(0, 0), upper = c(1, 1)) # optimize with some sensible conditions
-
-
-Opt_par <- setNames(Opt$par, c("beta", "gamma"))
-Opt_par
-
-# Parametros
-
-beta <- as.numeric(Opt_par[1]); # taxa de infecao 
-gama <- as.numeric(Opt_par[2]);  # taxa de recuperacao 
-
-par.SIRsd <- c(beta = beta, gama = gama)
-# calculando R0
-R0 <- as.numeric(beta/gama)
-R0  
-
-
-########################################
-# Modelo modelo estocastico gillespe  ----
-########################################
-
-
-# vamos  simular que vai acontecer nos priximos x dias 
-
-model  <- mparse(transitions = c("S -> beta*S*I/(S+I+R) -> I",
-                                 "I -> gamma*I -> R"),
-                 compartments = c("S", "I", "R"),
-                 gdata = c(beta = beta, gamma = gama), # ajsutamos 
-                 u0 = data.frame(S = N, I = banco$Infected[2],  R = 0),
-                 tspan = 1:35)
-
-
-
+mod.result <- run(model)
+plot(mod.result)
 
 # creamos funcion ----
 
@@ -146,12 +106,12 @@ coroneme_esta_siminf <- function (model1){
 
 # simulamos  rapidinho em paralelo 
 
-c_memory <- 19 # numero de nucleos do computador  
+c_memory <- 10 # numero de nucleos do computador  
 cl <- makeCluster(c_memory) #not to overload your computer
 registerDoParallel(cl)
 
 
-individual_sim <- 10
+individual_sim <- 20
 
 
 corona_sir_bog <- foreach(
@@ -167,10 +127,13 @@ stopCluster(cl)
 
 # agora plotamos a galera 
 
+corona_sir_bog <- corona_sir_bog%>% mutate(mortality = I*0.01) # assumindo a mortalidade de 1 %
 
-plotb1 <- plot1
+plotb1 <- ggplot()
 for (i in 1:individual_sim) {
-    temp <- corona_sir_bog %>% filter(simulation == i) %>% group_by(node, time,simulation) %>% summarise(I= sum(I))
+    temp <- corona_sir_bog %>% filter(simulation == i) %>% 
+        group_by(node, time,simulation) %>% summarise(I= mean(mortality))
+    
     plotb1 <- plotb1 + geom_line(data = temp,
                                  mapping = aes(x= time, y = I),
                                  colour = "#00a8cc",
@@ -178,8 +141,6 @@ for (i in 1:individual_sim) {
         ggtitle("2019-nCoV Bogota")
 }
 
-
-plotb1+xlim(0,35)
 
 
 ggsave("bogota.png", width = 6, height = 3)
