@@ -10,8 +10,9 @@ Aqui utilizamos los casos de muertes reportados globalmente para la parametrizac
 ###  Algunas cosideraciones
  Este es tan solo un modelo de muchos no **representa necesariamente la realidad** y asume que **no existe ninguna medida de control** como cuarentenas, restriccion de movimientos entre personas es meramente didáctico.
 aqui utilizamos un modelo simple  que considera tres grupos: **susceptible** -> **infectados** -> **recuperados**
-![fuente: institutefordiseasemodeling](https://institutefordiseasemodeling.github.io/Documentation/malaria/_images/SIR-SIRS.png)
-fuente: institutefordiseasemodeling
+![fuente: researchgate.net](https://www.researchgate.net/profile/Benjamin_Ivorra/publication/318394911/figure/fig9/AS:614332840833042@1523479771923/SEIR-model-flowchart_W640.jpg)
+fuente: Mathematical models for introduction, spread and early detection of infectious diseases in veterinary epidemiology
+July 2017, Thesis for: PhD. MathematicsAdvisor: Ángel M. Ramos; Benjamin Ivorra; Beatriz Martinéz López
 
 
 ### Simulamos diferentes escenarios para la enfermedad  
