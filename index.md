@@ -5,7 +5,7 @@
 
 
 ### Datos y Parametrizacion 
-Aqui utilizamos los casos de muertes reportados globalmente para la parametrización del modelo es realizada de acuerdo a los casos reportados en China, parametros fueron calulados a partir de un modelo deterministico [blog](https://www.r-bloggers.com/epidemiology-how-contagious-is-novel-coronavirus-2019-ncov//). El modelo aqui es un poco diferente este es un modelo estocástico es decir vamos a simular diferentes realidades alternativas que podría tener un evento epidémico.
+Aqui utilizamos los casos de muertes reportados globalmente para la parametrización del modelo es realizada de acuerdo a los casos reportados en China. Este es un modelo estocástico es decir vamos a simular diferentes curvas possibles  que podrían acontecer en un evento epidémico.
 
 ###  Algunas cosideraciones
  Este es tan solo un modelo de muchos no **representa necesariamente la realidad** y asume que **no existe ninguna medida de control** como cuarentenas, restriccion de movimientos entre personas es meramente didáctico.
@@ -19,7 +19,10 @@ Cada línea azul (20 en total) representa una simulación que es un escenario po
 <p align="center">
   <img width="600" height="400" src="https://github.com/ncespedesc/Coronavirus_bogota/blob/master/bogota1.png?raw=true">
 </p>
-  
+### media de la mortalidad simulada 
+<p align="center">
+  <img width="600" height="400" src="https://github.com/ncespedesc/Coronavirus_bogota/blob/master/bogota2.png?raw=true">
+</p>
 
 
  ### Codigo del modelo en R (en contruccion.... todavia )
