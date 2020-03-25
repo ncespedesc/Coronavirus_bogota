@@ -9,18 +9,20 @@ Aqui utilizamos los casos de muertes reportados globalmente para la parametrizac
 
 ###  Algunas cosideraciones
  Este es tan solo un modelo de muchos no **representa necesariamente la realidad** y asume que **no existe ninguna medida de control** como cuarentenas, restriccion de movimientos entre personas es meramente didáctico.
-aqui utilizamos un modelo simple  que considera tres grupos: **susceptible** -> **infectados** -> **recuperados**
+aqui utilizamos un modelo simple  que considera tres grupos: **susceptible** ->  **Expuestos** -> **infectados** -> **recuperados**
 ![fuente: researchgate.net](https://www.researchgate.net/profile/Benjamin_Ivorra/publication/318394911/figure/fig9/AS:614332840833042@1523479771923/SEIR-model-flowchart_W640.jpg)
 fuente: Mathematical models for introduction, spread and early detection of infectious diseases in veterinary epidemiology
 July 2017, Thesis for: PhD. MathematicsAdvisor: Ángel M. Ramos; Benjamin Ivorra; Beatriz Martinéz López
 
 
 ### Simulamos diferentes escenarios para la enfermedad  
-Cada línea azul (20 en total) representa una simulación que es un escenario posible para una curva epidémica, presentando una probabilidad diferente en el numero de infectados-fatales(considerando mortalidad del 1%) finales, los puntos rojos(a narajas son los los datos  de China). la escala de tiempo esta en dias. 
+Cada línea azul (20 en total) representa una simulación que es un escenario posible para una curva epidémica.
 <p align="center">
   <img width="600" height="400" src="https://github.com/ncespedesc/Coronavirus_bogota/blob/master/bogota1.png?raw=true">
 </p>
-### media de la mortalidad simulada 
+
+### Media de la mortalidad simulada 
+A continuacion media de los casos graves (consideramos 1% de los  infectados como graves)
 <p align="center">
   <img width="600" height="400" src="https://github.com/ncespedesc/Coronavirus_bogota/blob/master/bogota2.png?raw=true">
 </p>
@@ -37,7 +39,6 @@ Modelo en construccion ire acutalizando ... algun dia por ahi
 # pacotes 
 library('nCov2019')
 library(tidyverse)
-library(GillespieSSA)
 library(ggpubr)
 library(deSolve)
 library(SimInf)
@@ -68,9 +69,6 @@ Infected <- as.numeric(dxy_china$cum_confirm)
 Day <- 1:(length(Infected))
 N <- 7413000 # population of Bogota 
 banco <- data.frame(Infected, Day, N)
-
-
-
 
 
 ########################################
