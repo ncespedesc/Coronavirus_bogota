@@ -21,7 +21,7 @@ Cada línea azul (20 en total) representa una simulación que es un escenario po
   <img width="600" height="400" src="https://github.com/ncespedesc/Coronavirus_bogota/blob/master/bogota1.png?raw=true">
 </p>
 
-### Media de la mortalidad simulada 
+### Media de los casos graves 
 A continuacion media de los casos graves (consideramos 1% de los  infectados como graves)
 <p align="center">
   <img width="600" height="400" src="https://github.com/ncespedesc/Coronavirus_bogota/blob/master/bogota2.png?raw=true">
