@@ -5,7 +5,7 @@
 
 
 ### Datos y Parametrizacion 
-Aqui utilizamos los casos de muertes reportados globalmente para la parametrización del modelo es realizada de acuerdo a los casos reportados en China. Este es un modelo estocástico es decir vamos a simular diferentes curvas possibles  que podrían acontecer en un evento epidémico.
+ Este es un modelo estocástico es decir vamos a simular diferentes curvas possibles que podrían acontecer en un evento epidémico.
 
 ###  Algunas cosideraciones
  Este es tan solo un modelo de muchos no **representa necesariamente la realidad** y asume que **no existe ninguna medida de control** como cuarentenas, restriccion de movimientos entre personas es meramente didáctico.
@@ -21,7 +21,7 @@ Cada línea azul (20 en total) representa una simulación que es un escenario po
   <img width="600" height="400" src="https://github.com/ncespedesc/Coronavirus_bogota/blob/master/bogota1.png?raw=true">
 </p>
 
-### Media de la mortalidad simulada 
+### Media de los casos graves 
 A continuacion media de los casos graves (consideramos 1% de los  infectados como graves)
 <p align="center">
   <img width="600" height="400" src="https://github.com/ncespedesc/Coronavirus_bogota/blob/master/bogota2.png?raw=true">
