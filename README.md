@@ -78,7 +78,7 @@ banco <- data.frame(Infected, Day, N)
 #https://arxiv.org/pdf/2002.06563.pdf
 #https://www.thelancet.com/journals/langlo/article/PIIS2214-109X(20)30074-7/fulltext
 
-model <- SEIR(u0 = data.frame(S = 5000000, E = 0, I = 1, R = 0),
+model <- SEIR(u0 = data.frame(S = N, E = 0, I = 1, R = 0),
               tspan = 1:100,
               beta = 1.75,
               epsilon = 0.2,
